@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { useWallet } from '@/context/WalletContext';
+import Image from 'next/image';
 
 const Header: React.FC = () => {
   const { account, balance, isConnected, connectWallet, disconnectWallet } = useWallet();
@@ -49,7 +50,13 @@ const Header: React.FC = () => {
                 className="px-4 py-2 bg-[#4697ff] text-white rounded-lg hover:bg-[#3a7fd9] transition-colors text-sm flex items-center space-x-2"
               >
                 <span>Connect Wallet</span>
-                <img src="/metamask.webp" alt="MetaMask" className="w-5 h-5" />
+                <Image 
+                  src="/metamask.webp" 
+                  alt="MetaMask" 
+                  width={20} 
+                  height={20} 
+                  className="w-5 h-5"
+                />
               </button>
             )}
           </div>

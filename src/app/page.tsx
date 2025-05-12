@@ -42,7 +42,7 @@ export default function Home() {
                 <br></br>
 
                 <p className="text-lg font-medium pl-4 bg-gradient-to-r from-[#4697ff]/10 to-purple-500/10 p-4 rounded-lg border border-[#4697ff]/20 hover:border-[#4697ff]/40 transition-colors duration-300">
-                    <b>What's Next:</b> The project is evolving! Soon, Tamagotchi will integrate with blockchain, making your pet unique and ownable.
+                    <b>What&apos;s Next:</b> The project is evolving! Soon, Tamagotchi will integrate with blockchain, making your pet unique and ownable.
                   </p>
               </div>
             </div>

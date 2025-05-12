@@ -39,10 +39,10 @@ export const WalletProvider: React.FC<{ children: React.ReactNode }> = ({ childr
       // Request account access
       const accounts = await window.ethereum?.request({ 
         method: 'eth_requestAccounts' 
-      });
+      }) as string[];
 
       if (accounts && accounts.length > 0) {
-        const ethersProvider = new ethers.providers.Web3Provider(window.ethereum as any);
+        const ethersProvider = new ethers.providers.Web3Provider(window.ethereum as unknown as ethers.providers.ExternalProvider);
         const balance = await ethersProvider.getBalance(accounts[0]);
         
         setAccount(accounts[0]);
@@ -64,9 +64,9 @@ export const WalletProvider: React.FC<{ children: React.ReactNode }> = ({ childr
     // Check if wallet is already connected
     const checkConnection = async () => {
       if (window.ethereum) {
-        const accounts = await window.ethereum.request({ method: 'eth_accounts' });
+        const accounts = await window.ethereum.request({ method: 'eth_accounts' }) as string[];
         if (accounts && accounts.length > 0) {
-          const ethersProvider = new ethers.providers.Web3Provider(window.ethereum as any);
+          const ethersProvider = new ethers.providers.Web3Provider(window.ethereum as unknown as ethers.providers.ExternalProvider);
           const balance = await ethersProvider.getBalance(accounts[0]);
           
           setAccount(accounts[0]);
@@ -80,13 +80,13 @@ export const WalletProvider: React.FC<{ children: React.ReactNode }> = ({ childr
 
     // Listen for account changes
     if (window.ethereum) {
-      window.ethereum.on('accountsChanged', (accounts: string[]) => {
-        if (accounts.length === 0) {
+      window.ethereum.on('accountsChanged', ((accounts: unknown) => {
+        if (Array.isArray(accounts) && accounts.length === 0) {
           disconnectWallet();
-        } else {
+        } else if (Array.isArray(accounts) && accounts.length > 0) {
           connectWallet();
         }
-      });
+      }) as (...args: unknown[]) => void);
     }
 
     return () => {
